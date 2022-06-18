@@ -27,7 +27,7 @@ body{
 }
 .container{
     margin: 0 auto;
-    padding-left: 2.2em;
+    padding-left: 6em;
     width: 80%;
 }
 
@@ -43,11 +43,11 @@ nav{
     color: var(--text-mute);
     font-weight: 300;
 
-    transform: translateX(0);
+    transform: translateX(-100%);
+    transition: 0.1s ease transform;
 }
 nav.show{
-    transform: translateX(-100%);
-    transition: 0.3s ease transform;
+    transform: translateX(0%);
 }
 nav .hidden-menu{
     width: 100%;
@@ -60,7 +60,7 @@ nav .hidden-menu svg{
     cursor: pointer;
 }
 .show-menu{
-    display: none;
+    display: block;
 }
 .show-menu svg{
     position: absolute;
@@ -177,6 +177,112 @@ header .searching .search-box:hover i{
     z-index: -1;
 }
 
+/* add movie form */
+
+.addMovieForm{ 
+    position: fixed;
+    border: 5px solid var(--sea-green);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 2em 3em;
+    z-index: 9;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.addMovieForm .closeaddformbtn svg{
+    height: 20px;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+.addMovieForm .formheading h1{
+    font-size: 25px;
+    font-weight: 500;
+    margin-bottom: 0.75em;
+    margin-top: 0.75em;
+}
+.addMovieForm form input, .addMovieForm form label{
+    display: block;
+}
+.addMovieForm form input{
+    height: 100%;
+    width: 100%;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 17px;
+    border: 1px solid silver;
+    margin-bottom: 0.75em;
+}
+.addMovieForm form label{
+    color: rgba(0, 0, 0, 0.716);
+    font-size: 13px;
+}
+
+.addMovieForm form .poster-imdb{
+    display: flex;
+    align-items: center;
+}
+.addMovieForm form .poster-imdb label{
+    margin-bottom: 0.75em;
+    padding: 0 1em;
+}
+.addMovieForm form .poster-imdb label:first-child{
+    padding-right: 1.25em;
+    padding-left: 0;
+}
+.addMovieForm form .poster-imdb #imdb-rank{
+    min-width: 80px;
+    max-width: 100px;
+}
+.choose-watch{
+    /* width: 300px;
+    height: 80px; */
+    /* display: table; */
+    display: flex;
+    justify-content: center;
+    margin: 0.75em 0;
+}
+  
+.choose-watch input[type="radio"]{
+    visibility: hidden;
+    height: 0;
+    width: 0;
+  }
+  
+.choose-watch label {
+    display: table-cell;
+    text-align: center;
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid var(--sea-green);
+    color: white;
+    padding: 10px 15px;
+    margin-right: 10px;
+    margin-left: 10px;
+    border-radius: 3px;
+}
+input[type="radio"]:checked + label{
+    background-color: var(--sea-green);
+    color: #fff;
+}
+
+.addMovieForm form button{
+    font-size: 16px;
+    width: 100%;
+    padding: 0.65em;
+    background: var(--bg-main);
+    border-radius: 3px;
+    border-width: 0;
+    margin-top: 15px;
+    color: #fff;
+    cursor: pointer;
+}
 /* Movies*/
 #movies{
     margin-top: 4em;
@@ -240,4 +346,131 @@ header .searching .search-box:hover i{
     height: 20px;
     color: var(--text-mute);
     cursor: pointer;
+}
+
+
+@media(max-width: 1536px){
+    #movies ul li{
+        width: calc(100% / 4);
+    }
+}
+@media(max-width : 1280px){
+    #movies ul li{
+        width: calc(100% / 3);
+    }
+}
+@media(max-width : 768px){
+    #movies{
+        padding-left: 2.3em;
+    }
+    #movies ul li{
+        width: calc(100% / 2);
+        padding-left: 2em;
+    }
+    #movies ul{
+        justify-content: space-around;
+    }
+        /* CONTAINER RESPONSIVE*/
+    .container{
+        margin: 0 auto;
+        padding-left: 2.2em;
+        width: 100%;
+    }
+    /* HEADER RESPONSIVE */
+    header{
+        flex-direction: column-reverse;
+        
+    }
+    header .heading{
+        letter-spacing: 1px;
+        font-size: 0.6rem;
+        margin: 0;
+        margin-top: 5em;
+        margin-right: 3em;
+    }
+    header .searching{
+        margin-right: 1.3rem;
+        margin-top: 1em;
+    }
+    header .searching .search-box .input {
+        padding: 10px;
+        width: 80px;
+        height: 40px;
+        font-size: 17px;
+    }
+    header .searching .search-box:hover input{
+        width: 250px;
+    }
+    header .searching .search-box i{
+        top: 50%;
+        right: 25px;
+        font-size: 17px;
+    }
+    /* NAV RESPONSIVE */
+    nav{
+        /* height: 100%; */
+        
+        position: fixed;
+        background-color: #3a4f4a;
+    }
+    nav.show{
+        width: 100%;
+        
+    }
+    nav .profil{
+        padding-left: 0;
+        justify-content: center;
+        margin-bottom: 2em;
+    }
+    nav .profil img{
+        width: 75px;
+        height: 75px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+    nav .profil p{
+        padding-left: 0.7em;
+        font-size: 1.5rem;
+        font-weight: 400;
+        letter-spacing: 2px;
+        color: var(--text-mute);
+    }
+    nav ul{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    nav .main-links ul li,
+    nav .settings ul li{
+        padding-left: 0;
+        font-size: 2rem;
+        width: 75%;
+    }
+    nav .hidden-menu svg{
+        height: 40px;
+    }
+
+    /* ADD MOVİE FORM RESPONSIVE*/
+    .addMovieForm form .poster-imdb{
+        display: block;
+    }
+    .addMovieForm form .poster-imdb label{
+        padding: 0;
+        margin: 0;
+    }
+    .choose-watch {
+        display: flex;
+        align-items: center;
+    }
+    .choose-watch label{
+        min-width: 70px;
+        box-sizing: content-box;
+    }
+}
+@media(max-width : 540px){
+    #movies ul li{
+        width: calc(100%);
+    }
+
 }

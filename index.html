@@ -45,13 +45,49 @@
         <menu class="settings">
             <ul>
                 <li>Settings</li>
-                <li>Add New Movie</li>
+                <li id="addMovieBtn">Add New Movie</li>
             </ul>
         </menu>
     </nav>
 
+        <div class="addMovieForm">
+            <div class="closeaddformbtn">
+                <svg id="closeaddformbtn" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </div>
+            <div class="formheading">
+                <h1>Add New Movie</h1>
+            </div>
+            <form action="">
+                <label for="name">Movie name</label>
+                <input type="text" id="movie-name">
+    
+                <label for="author">Author</label>
+                <input type="text" id="movie-author">
+    
+                <div class="poster-imdb">
+                    <label for="poster">Poster URL:</label>
+                    <input type="text" id="poster-url">
+        
+                    <label for="imdb">IMDB:</label>
+                    <input type="number" name="imdb" id="imdb-rank">
+                </div>
 
-    <div id="content" class="container-wthmenu">
+                <div class="choose-watch"> 
+                    <input type="radio" name="size" id="size_1" value="small" checked />
+                     <label for="size_1">History</label>
+                      
+                     <input type="radio" name="size" id="size_2" value="small" />
+                     <label for="size_2">Watch Later</label>
+                      
+                </div>
+
+                <button type="submit">Add New Movie</button>
+            </form>
+        </div>
+
+    <div id="content" class="container">
 
         <header>
             <div class="heading">
