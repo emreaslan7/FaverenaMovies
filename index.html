@@ -58,12 +58,18 @@
             </div>
             <div class="formheading">
                 <h1>Add New Movie</h1>
+                <div id="error-message">
+                    <div id="danger" class="danger alert">
+                        <p>Please enter all values</p>
+                        <a href="#"><i class="fa-solid fa-xmark"></i></a>
+                    </div>
+                </div>
             </div>
             <form action="">
                 <label for="name">Movie name</label>
                 <input type="text" id="movie-name">
     
-                <label for="author">Author</label>
+                <label for="author">Director</label>
                 <input type="text" id="movie-author">
     
                 <div class="poster-imdb">
@@ -71,15 +77,15 @@
                     <input type="text" id="poster-url">
         
                     <label for="imdb">IMDB:</label>
-                    <input type="number" name="imdb" id="imdb-rank">
+                    <input type="number" name="imdb" id="imdb-rank" step="0.1">
                 </div>
 
                 <div class="choose-watch"> 
-                    <input type="radio" name="size" id="size_1" value="small" checked />
-                     <label for="size_1">History</label>
+                    <input type="radio" name="size" id="radio-history" value="small" checked />
+                     <label for="radio-history">History</label>
                       
-                     <input type="radio" name="size" id="size_2" value="small" />
-                     <label for="size_2">Watch Later</label>
+                     <input type="radio" name="size" id="radio-watchlater" value="small" />
+                     <label for="radio-watchlater">Watch Later</label>
                       
                 </div>
 

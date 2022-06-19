@@ -63,7 +63,7 @@ nav .hidden-menu svg{
     display: block;
 }
 .show-menu svg{
-    position: absolute;
+    position: fixed;
     height: 25px;
     top: 15px;
     left: 15px;
@@ -200,11 +200,31 @@ header .searching .search-box:hover i{
     right: 10px;
     cursor: pointer;
 }
+.addMovieForm .formheading{
+    width: 100%;
+}
 .addMovieForm .formheading h1{
     font-size: 25px;
     font-weight: 500;
     margin-bottom: 0.75em;
     margin-top: 0.75em;
+}
+.addMovieForm #error-message{
+    display: none;
+    background-color: #dc3545;
+    color: #fff;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    margin-bottom: 0.75em;
+}
+.addMovieForm #error-message #danger{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+}
+.addMovieForm #error-message #danger a{
+    color: white;
 }
 .addMovieForm form input, .addMovieForm form label{
     display: block;
@@ -320,6 +340,7 @@ input[type="radio"]:checked + label{
     align-self: flex-end;
     margin-bottom: 45px;
     margin-left: -18px;
+    box-shadow: rgb(0, 0, 0) 0px 3px 8px;
 }
 
 #movies ul li .movie-desc{
