@@ -4,6 +4,7 @@ const showNavContent = document.querySelector('.show-menu svg');
 const showNav = document.querySelector('.show-menu');
 const content  = document.querySelector('#content');
 const addMovieBtn = document.querySelector('#addMovieBtn');
+const filmList = document.querySelector('#movies ul');
 const closeAddFormBtn = document.querySelector('#closeaddformbtn');
 const addMovieFormdiv =  document.querySelector('.addMovieForm');
 const addMovieForm = document.querySelector('.addMovieForm form');
@@ -13,24 +14,62 @@ const inputMovieauthor = document.querySelector('#movie-author');
 const inputMovieposterurl = document.querySelector('#poster-url');
 const inputMovieimdb = document.querySelector('#imdb-rank');
 const inputMovieHistory = document.querySelector('#radio-history');
-
+//ERROR
 const errorMessage = document.querySelector('#error-message');
 const errorClose = document.querySelector('.fa-xmark');
-
-const MY_COLLETION = [];
-const HISTORY = [];
-const WATCH_LATER = [];
-const STARRED_FILMS = [];
+//MOVİE NUMBER
+const myCollectionNumber = document.querySelectorAll('.movies-number')[0];
+const HistoryNumber = document.querySelectorAll('.movies-number')[1];
+const WatchLaterNumber = document.querySelectorAll('.movies-number')[2];
+const StarredNumber = document.querySelectorAll('.movies-number')[3];
 
 addEventListener();
 
 function addEventListener(){
+    document.addEventListener('DOMContentLoaded',LoadAllChangesToUI);
     hiddenNavicon.addEventListener('click',NavHidden);
     showNavContent.addEventListener('click',NavbarShow);
     addMovieBtn.addEventListener('click',OpenAddMovieForm)
     closeAddFormBtn.addEventListener('click',CloseAddMovieForm);
     addMovieForm.addEventListener('submit',AddMovieToUI);
     errorClose.addEventListener('click',CloseErrorMessage);
+    filmList.addEventListener('click',DeleteMovieFromUI);
+}
+
+// all todos list to UI when load page
+function LoadAllChangesToUI(e){
+    let myCollection = getMoviesFromStorage();
+    myCollection.forEach(movie =>{
+
+        filmList.innerHTML += `
+        <li>
+            <div class="poster">
+                <img src="${movie.url}" alt="movie">
+                <div class="rank">
+                ${movie.imdb}
+                </div>
+            </div>
+            <div class="movie-desc">
+                <div>
+                    <h6 class="movie-name">${movie.name}</h6>
+                    <p class="author">${movie.director}</p>
+                </div>
+                <div class="movies-icons">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 starred-movie" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 delete-movie" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+            </div>
+            </div>
+        </li>   `
+    })
+    // movies numbers
+    myCollectionNumber.innerHTML = myCollection.length;
+
+    let HistoryMovies = getHistoryMoviesFromStorage();
+    HistoryNumber.innerHTML = HistoryMovies.length;
 }
 
 // Navbar Show
@@ -72,8 +111,29 @@ function Film(name,director,url,imdb,history){
     this.history = history;
 }
 
+function getMoviesFromStorage(){
+    let myCollection;
+
+    if(localStorage.getItem('myCollection') == null){
+        myCollection = [];
+    }else{
+        myCollection = JSON.parse(localStorage.getItem('myCollection'));
+    }
+    return myCollection;
+}
+
+function getHistoryMoviesFromStorage(){
+    let HistoryMovies;
+    if(localStorage.getItem('HistoryMovies') == null){
+        HistoryMovies = [];
+    }else{
+        HistoryMovies = JSON.parse(localStorage.getItem('HistoryMovies'));
+    }
+    return HistoryMovies;
+}
+
 function AddMovieToUI(e){
-    const filmList = document.querySelector('#movies ul');
+    
     const name = inputMoviename.value;
     const director = inputMovieauthor.value;
     const url = inputMovieposterurl.value;
@@ -97,13 +157,72 @@ function AddMovieToUI(e){
                     <h6 class="movie-name">${newfilm.name}</h6>
                     <p class="author">${newfilm.director}</p>
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
+                <div class="movies-icons">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 starred-movie" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 delete-movie" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                </div>
             </div>
-        </li>   `
+        </li>`
         CloseErrorMessage();
         CloseAddMovieForm();
+        inputMoviename.value ="";
+        inputMovieauthor.value ="";
+        inputMovieposterurl.value="";
+        inputMovieimdb.value="";
+
+        //add to local storage
+        let myCollection = getMoviesFromStorage();
+        myCollection.push(newfilm);
+        localStorage.setItem('myCollection',JSON.stringify(myCollection));
+
+        if(newfilm.history == true){
+            let historyMovies = getHistoryMoviesFromStorage();
+            historyMovies.push(newfilm);
+            localStorage.setItem('HistoryMovies',JSON.stringify(historyMovies));
+        }
+        // movies numbers
+        myCollectionNumber.innerHTML = myCollection.length;
+        HistoryNumber.innerHTML = historyMovies.length;
+
     }
     e.preventDefault();
+}
+
+function DeleteMovieFromUI(e){
+
+    const filmname = e.target.parentNode.previousSibling.previousSibling.firstChild.nextSibling.textContent;
+    confirmMessageforDelete = `Are you sure you want to delete ${filmname}`;
+
+    if(e.target.classList == "h-6 w-6 delete-movie"){
+        if(confirm(confirmMessageforDelete) == true){
+
+            // delete from UI
+            e.target.parentNode.parentNode.parentNode.remove();
+
+            // delete from storage
+            let movies = getMoviesFromStorage();
+            movies.forEach( (movie,index)=> {
+                if(movie.name == filmname){
+                    movies.splice(index,1);
+                }
+            })
+            localStorage.setItem('myCollection',JSON.stringify(movies));
+
+            let HistoryMovies = getMoviesFromStorage();
+            HistoryMovies.forEach( (movie,index)=> {
+                if(movie.name == filmname){
+                    movies.splice(index,1);
+                }
+            })
+            localStorage.setItem('HistoryMovies',JSON.stringify(HistoryMovies));
+
+            //movies numbers
+            myCollectionNumber.innerHTML = movies.length;
+            HistoryNumber.innerHTML = HistoryMovies.length;
+        }
+    }
 }

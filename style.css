@@ -100,6 +100,20 @@ nav .main-links{
     padding-top: 20px;
     border-bottom: 1px solid var(--border-line);
 }
+nav .main-links ul li{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+nav .main-links ul li:hover .movies-number{
+    transform: scale(1.4);
+}
+nav .main-links ul li .movies-number{
+    font-size: 12px;
+    display: block;
+    margin-right: 3em;
+    transition: 0.1s;
+}
 nav .main-links ul li,
 nav .settings ul li{
     padding-top: 0.75em;
@@ -329,7 +343,7 @@ input[type="radio"]:checked + label{
 
 #movies ul li .poster .rank{
     background-color: var(--oranges);
-    color: #fff;
+    color: rgb(255, 255, 255);
     width: 35px;
     height: 35px;
     padding: .4em;
@@ -363,10 +377,16 @@ input[type="radio"]:checked + label{
     color: var(--text-mute);
     margin-top: 0.3em;
 }
+#movies ul li .movie-desc .movies-icons{
+    display: flex;
+}
 #movies ul li .movie-desc svg{
-    height: 20px;
+    height: 18px;
     color: var(--text-mute);
     cursor: pointer;
+}
+#movies ul li .movie-desc svg:nth-child(1){
+    padding-right: 7px;
 }
 
 
