@@ -70,6 +70,23 @@ function LoadAllChangesToUI(e){
 
     let HistoryMovies = getHistoryMoviesFromStorage();
     HistoryNumber.innerHTML = HistoryMovies.length;
+
+    let WatchLaterMovies = getWatchLaterMoviesFromStorage();
+    WatchLaterNumber.innerHTML = WatchLaterMovies.length;
+
+    // fill stared movies when page loaded
+    let starredmovies = getStarredMoviesFromStorage();
+    const starredicon = document.querySelectorAll('.starred-movie');
+
+    starredicon.forEach(staricn =>{
+        starredmovies.forEach(starmovie =>{
+            if(starmovie.name == staricn.parentNode.previousSibling.previousSibling.firstChild.nextSibling.textContent){
+                staricn.style.fill = 'currentColor'; 
+            }
+        })
+        
+    })
+    StarredNumber.innerHTML = starredmovies.length;
 }
 
 // Navbar Show
@@ -132,6 +149,26 @@ function getHistoryMoviesFromStorage(){
     return HistoryMovies;
 }
 
+function getWatchLaterMoviesFromStorage(){
+    let WatchLaterMovies;
+    if(localStorage.getItem('WatchLaterMovies') == null){
+        WatchLaterMovies = [];
+    }else{
+        WatchLaterMovies = JSON.parse(localStorage.getItem('WatchLaterMovies'));
+    }
+    return WatchLaterMovies;
+}
+
+function getStarredMoviesFromStorage(){
+    let StarredMovies;
+    if(localStorage.getItem('StarredMovies') == null){
+        StarredMovies = [];
+    }else{
+        StarredMovies = JSON.parse(localStorage.getItem('StarredMovies'));
+    }
+    return StarredMovies;
+}
+
 function AddMovieToUI(e){
     
     const name = inputMoviename.value;
@@ -158,7 +195,7 @@ function AddMovieToUI(e){
                     <p class="author">${newfilm.director}</p>
                 </div>
                 <div class="movies-icons">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 starred-movie" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 starred-movie" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 delete-movie" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -183,10 +220,16 @@ function AddMovieToUI(e){
             let historyMovies = getHistoryMoviesFromStorage();
             historyMovies.push(newfilm);
             localStorage.setItem('HistoryMovies',JSON.stringify(historyMovies));
+        }else{
+            let WatchLaterMovies = getWatchLaterMoviesFromStorage();
+            WatchLaterMovies.push(newfilm);
+            localStorage.setItem('WatchLaterMovies',JSON.stringify(WatchLaterMovies));
         }
+
         // movies numbers
         myCollectionNumber.innerHTML = myCollection.length;
         HistoryNumber.innerHTML = historyMovies.length;
+        WatchLaterNumber.innerHTML = WatchLaterMovies.length;
 
     }
     e.preventDefault();
@@ -212,6 +255,7 @@ function DeleteMovieFromUI(e){
             })
             localStorage.setItem('myCollection',JSON.stringify(movies));
 
+            // delete history array 
             let HistoryMovies = getMoviesFromStorage();
             HistoryMovies.forEach( (movie,index)=> {
                 if(movie.name == filmname){
@@ -220,9 +264,44 @@ function DeleteMovieFromUI(e){
             })
             localStorage.setItem('HistoryMovies',JSON.stringify(HistoryMovies));
 
+            //delete watch later array
+            let WatchLaterMovies = getWatchLaterMoviesFromStorage();
+            WatchLaterMovies.forEach( (movie,index)=> {
+                if(movie.name == filmname){
+                    movies.splice(index,1);
+                }
+            })
+            localStorage.setItem('WatchLaterMovies',JSON.stringify(WatchLaterMovies));
+
             //movies numbers
             myCollectionNumber.innerHTML = movies.length;
             HistoryNumber.innerHTML = HistoryMovies.length;
+            WatchLaterNumber.innerHTML = WatchLaterMovies.length;
         }
     }
+    if(e.target.classList == "h-6 w-6 starred-movie"){
+        if(e.target.style.fill == ''){
+            e.target.style.fill = 'currentColor';
+            let starredMovies = getStarredMoviesFromStorage();
+            let allfilms = getMoviesFromStorage();
+            allfilms.forEach(movie =>{
+                if(movie.name == filmname){
+                    starredMovies.push(movie);
+                    localStorage.setItem('StarredMovies',JSON.stringify(starredMovies));;
+                    StarredNumber.innerHTML = starredMovies.length;
+                }
+            })
+        }
+        else{
+            e.target.style.fill = '';
+            let starredmovies = getStarredMoviesFromStorage();
+            starredmovies.forEach((movie,index) =>{
+                if(movie.name == filmname){
+                    starredmovies.splice(index,1);
+                    localStorage.setItem('StarredMovies',JSON.stringify(starredmovies));;
+                    StarredNumber.innerHTML = starredmovies.length;
+                }
+            })
+        }    
+    }   
 }
