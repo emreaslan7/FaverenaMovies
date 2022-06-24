@@ -23,6 +23,9 @@ const HistoryNumber = document.querySelectorAll('.movies-number')[1];
 const WatchLaterNumber = document.querySelectorAll('.movies-number')[2];
 const StarredNumber = document.querySelectorAll('.movies-number')[3];
 
+const showLinksUl = document.querySelector('.main-links ul');
+
+
 addEventListener();
 
 function addEventListener(){
@@ -34,6 +37,7 @@ function addEventListener(){
     addMovieForm.addEventListener('submit',AddMovieToUI);
     errorClose.addEventListener('click',CloseErrorMessage);
     filmList.addEventListener('click',DeleteMovieFromUI);
+    showLinksUl.addEventListener('click',ShowMoviesToUI);
 }
 
 // all todos list to UI when load page
@@ -304,4 +308,72 @@ function DeleteMovieFromUI(e){
             })
         }    
     }   
+}
+
+function ShowMoviesToUI(e){
+    
+    const allmovies = document.querySelectorAll('#movies ul li');
+    allmovies.forEach(movie =>{
+        const movieName = movie.children[1].children[0].children[0].textContent;
+        movie.style.display = 'none';
+
+        if(e.target.id == 'show-mycollection'){
+            movie.style.display = 'block';
+        }
+        else if(e.target.id == 'show-history'){
+
+            let historymovies = getHistoryMoviesFromStorage();
+            historymovies.forEach(historymovie =>{
+                if(movieName == historymovie.name){
+                    movie.style.display = 'block';
+                }
+            })
+            
+        }else if(e.target.id == 'show-watchlater'){
+            
+            let watchlatermovies = getWatchLaterMoviesFromStorage();
+            watchlatermovies.forEach(watchlatermovie =>{
+                if(movieName == watchlatermovie.name){
+                    movie.style.display = 'block';
+                }
+            })
+
+        }else if(e.target.id == 'show-starredfilms'){
+            
+            let starredfilms = getStarredMoviesFromStorage();
+            starredfilms.forEach(starredfilm =>{
+                if(movieName == starredfilm.name){
+                    movie.style.display = 'block';
+                }
+            })
+
+        }
+        // else if(e.target.id == 'show-topscore'){
+
+        //     let imdbRanks = getMoviesFromStorage();
+        //     imdbRanks.sort( (a,b) =>{
+        //         return b.imdb - a.imdb;
+        //     });
+        //     imdbRanks.forEach(rankmovie =>{
+        //         if(rankmovie.name == movieName){
+        //             movie[rankmovie].style.display = 'block';
+        //         }
+        //     })
+            
+        // }
+    })
+
+    if(e.target.id == 'show-topscore'){
+
+        // let imdbRanks = getMoviesFromStorage();
+        // imdbRanks.sort( (a,b) =>{
+        //     return b.imdb - a.imdb;
+        // });
+        // imdbRanks.forEach(rankmovie =>{
+        //     if(rankmovie.name in allmovies){
+        //         movie[rankmovie.name].style.display = 'block';
+        //     }
+        // })
+        
+    }
 }
