@@ -189,9 +189,7 @@ function AddMovieToUI(e){
         <li>
             <div class="poster">
                 <img src="${newfilm.url}" alt="movie">
-                <div class="rank">
-                ${newfilm.imdb}
-                </div>
+                <div class="rank">${newfilm.imdb}</div>
             </div>
             <div class="movie-desc">
                 <div>
@@ -311,10 +309,11 @@ function DeleteMovieFromUI(e){
 }
 
 function ShowMoviesToUI(e){
-    
-    const allmovies = document.querySelectorAll('#movies ul li');
+  
+    let allmovies = document.querySelectorAll('#movies ul li');
+
     allmovies.forEach(movie =>{
-        const movieName = movie.children[1].children[0].children[0].textContent;
+        let movieName = movie.children[1].children[0].children[0].textContent;
         movie.style.display = 'none';
 
         if(e.target.id == 'show-mycollection'){
@@ -348,32 +347,6 @@ function ShowMoviesToUI(e){
             })
 
         }
-        // else if(e.target.id == 'show-topscore'){
-
-        //     let imdbRanks = getMoviesFromStorage();
-        //     imdbRanks.sort( (a,b) =>{
-        //         return b.imdb - a.imdb;
-        //     });
-        //     imdbRanks.forEach(rankmovie =>{
-        //         if(rankmovie.name == movieName){
-        //             movie[rankmovie].style.display = 'block';
-        //         }
-        //     })
-            
-        // }
-    })
-
-    if(e.target.id == 'show-topscore'){
-
-        // let imdbRanks = getMoviesFromStorage();
-        // imdbRanks.sort( (a,b) =>{
-        //     return b.imdb - a.imdb;
-        // });
-        // imdbRanks.forEach(rankmovie =>{
-        //     if(rankmovie.name in allmovies){
-        //         movie[rankmovie.name].style.display = 'block';
-        //     }
-        // })
         
-    }
+    })
 }
