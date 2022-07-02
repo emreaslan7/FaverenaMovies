@@ -24,7 +24,9 @@ const WatchLaterNumber = document.querySelectorAll('.movies-number')[2];
 const StarredNumber = document.querySelectorAll('.movies-number')[3];
 
 const showLinksUl = document.querySelector('.main-links ul');
-
+//Search
+const searchmovie = document.querySelector('#search-movie');
+console.log(searchmovie);
 
 addEventListener();
 
@@ -38,6 +40,7 @@ function addEventListener(){
     errorClose.addEventListener('click',CloseErrorMessage);
     filmList.addEventListener('click',DeleteMovieFromUI);
     showLinksUl.addEventListener('click',ShowMoviesToUI);
+    searchmovie.addEventListener('keyup',SearchMovieForUser);
 }
 
 // all todos list to UI when load page
@@ -348,5 +351,23 @@ function ShowMoviesToUI(e){
 
         }
         
+    })
+}
+
+// search movie func
+function SearchMovieForUser(e){
+    const searchitem = e.target.value.toLowerCase();
+
+    let allmovies = document.querySelectorAll('#movies ul li');
+
+    allmovies.forEach(movielielement =>{
+        const moviename = movielielement.innerText.toLowerCase();
+
+        if(moviename.indexOf(searchitem) === -1){
+            movielielement.style.display = 'none';
+        }
+        else{
+            movielielement.style.display = 'block';
+        }  
     })
 }
