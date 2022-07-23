@@ -1,3 +1,9 @@
+import {Request}  from "./api-movie.js";
+
+// const request = new Request(`https://api.themoviedb.org/3/search/movie?api_key=`);
+
+// request.GET(`${request.API_KEY}&language=en-US&query=${wantedMovie}&page=1`).then(response => console.log(response.results));
+
 const navContent = document.querySelector('nav');
 const hiddenNavicon = document.querySelector('.hidden-menu-icon');
 const showNavContent = document.querySelector('.show-menu svg');
@@ -6,8 +12,8 @@ const content  = document.querySelector('#content');
 const addMovieBtn = document.querySelector('#addMovieBtn');
 const filmList = document.querySelector('#movies ul');
 const closeAddFormBtn = document.querySelector('#closeaddformbtn');
-const addMovieFormdiv =  document.querySelector('.addMovieForm');
-const addMovieForm = document.querySelector('.addMovieForm form');
+const addMovieFormdiv =  document.querySelectorAll('.addMovieForm');
+const addMovieForm = document.querySelector('form');
 // input form new film
 const inputMoviename = document.querySelector('#movie-name');
 const inputMovieauthor = document.querySelector('#movie-author');
@@ -26,8 +32,11 @@ const StarredNumber = document.querySelectorAll('.movies-number')[3];
 const showLinksUl = document.querySelector('.main-links ul');
 //Search
 const searchmovie = document.querySelector('#search-movie');
-console.log(searchmovie);
-
+//API
+const addmoviebtnApi = document.querySelector('#addmovie-api');
+const closeAddFormBtnApi = document.querySelector('#closebutton-api');
+const searchinputApi = document.querySelector('#search-fromApi');
+console.log(searchinputApi);
 addEventListener();
 
 function addEventListener(){
@@ -41,6 +50,9 @@ function addEventListener(){
     filmList.addEventListener('click',DeleteMovieFromUI);
     showLinksUl.addEventListener('click',ShowMoviesToUI);
     searchmovie.addEventListener('keyup',SearchMovieForUser);
+    //API
+    addmoviebtnApi.addEventListener('click',OpenAddMovieFormAPI);
+    closeAddFormBtnApi.addEventListener('click',CloseAddMovieFormAPI);
 }
 
 // all todos list to UI when load page
@@ -114,11 +126,11 @@ function NavHidden(){
 
 // Add movie form open & close
 function OpenAddMovieForm(){
-    addMovieFormdiv.style.display = 'flex';
+    addMovieFormdiv[0].style.display = 'flex';
     NavHidden();
 }
 function CloseAddMovieForm(){
-    addMovieFormdiv.style.display = 'none';
+    addMovieFormdiv[0].style.display = 'none';
 }
 
 // Close error message
@@ -370,4 +382,13 @@ function SearchMovieForUser(e){
             movielielement.style.display = 'block';
         }  
     })
+}
+
+// ------------- API ------------
+function OpenAddMovieFormAPI(){
+    addMovieFormdiv[1].style.display = 'flex';
+    NavHidden();
+}
+function CloseAddMovieFormAPI(){
+    addMovieFormdiv[1].style.display = 'none';
 }

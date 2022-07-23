@@ -389,6 +389,70 @@ input[type="radio"]:checked + label{
     padding-right: 7px;
 }
 
+/* ------ API -------- */
+#addMovieFormApi{
+    padding: 1em !important;
+    display: flex;
+    justify-content: center;
+    top: 25%;
+    width: 750px;
+}
+.search-api {
+    width: 100%;
+    position: relative;
+    display: flex;
+  }
+.search-api input{
+    background-color: var(--sea-green);
+    color: #fff;
+    font-weight:700;
+    font-size: large;
+}
+.search-api input::-webkit-input-placeholder{
+    color: rgba(51, 51, 51, 0.579);
+}
+.searchTerm {
+    width: 100%;
+    border: 3px solid #00B4CC;
+    border-right: none;
+    border-left: none;
+    padding: 21px;
+    height: 20px;
+    outline: none;
+    color: #9DBFAF;
+}
+  
+.searchTerm:focus{
+    color: #ffffff;
+}
+  
+.searchButton-api {
+    width: 40px;
+    height: 48px;
+    border: 1px solid #00B4CC;
+    background: #00B4CC;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+}
+#closebutton-api{
+    border: 1px solid #dc3545;
+    border-radius: 5px 0 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #dc3545;
+}
+.wrap-search-api{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+/*---------API END-------*/
 
 @media(max-width: 1536px){
     #movies ul li{
@@ -508,10 +572,17 @@ input[type="radio"]:checked + label{
         min-width: 70px;
         box-sizing: content-box;
     }
+    /* API RESPONSIVE */
+    #addMovieFormApi{
+        width: 450px;
+    }
 }
 @media(max-width : 540px){
     #movies ul li{
         width: calc(100%);
+    }
+    #addMovieFormApi{
+        width: 375px;
     }
 
 }
