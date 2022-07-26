@@ -449,8 +449,21 @@ input[type="radio"]:checked + label{
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
+}
+#api-results {
+    position: absolute;
+    width : 708px;
+    max-height: 400px;
+    box-sizing: border-box;
+    z-index: 1001;
+    margin-top: 45px;
+    background-color: #00B4CC;
+}
+.api-result{
+    background-color: #9DBFAF;
+    padding: 1em;
 }
 /*---------API END-------*/
 

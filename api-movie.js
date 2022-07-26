@@ -11,6 +11,6 @@ export class Request{
     }
 }
 
-// const url = "https://api.themoviedb.org/3/search/multi?api_key=41c5c036959690ae51318d3681db0480&language=en-US&query=Harry&page=1&include_adult=false";
+// const url = "https://api.themoviedb.org/3/movie/56/images?api_key=41c5c036959690ae51318d3681db0480&language=en-US";
 // fetch(url).then(response => response.json())
-// .then(response => console.log(response.results));
+// .then(response => console.log(response));

@@ -1,8 +1,6 @@
 import {Request}  from "./api-movie.js";
 
-// const request = new Request(`https://api.themoviedb.org/3/search/movie?api_key=`);
-
-// request.GET(`${request.API_KEY}&language=en-US&query=${wantedMovie}&page=1`).then(response => console.log(response.results));
+const request = new Request(`https://api.themoviedb.org/3/search/movie?api_key=`);
 
 const navContent = document.querySelector('nav');
 const hiddenNavicon = document.querySelector('.hidden-menu-icon');
@@ -36,7 +34,6 @@ const searchmovie = document.querySelector('#search-movie');
 const addmoviebtnApi = document.querySelector('#addmovie-api');
 const closeAddFormBtnApi = document.querySelector('#closebutton-api');
 const searchinputApi = document.querySelector('#search-fromApi');
-console.log(searchinputApi);
 addEventListener();
 
 function addEventListener(){
@@ -53,6 +50,7 @@ function addEventListener(){
     //API
     addmoviebtnApi.addEventListener('click',OpenAddMovieFormAPI);
     closeAddFormBtnApi.addEventListener('click',CloseAddMovieFormAPI);
+    searchinputApi.addEventListener('keyup',GetDataFromAPI);
 }
 
 // all todos list to UI when load page
@@ -391,4 +389,19 @@ function OpenAddMovieFormAPI(){
 }
 function CloseAddMovieFormAPI(){
     addMovieFormdiv[1].style.display = 'none';
+}
+
+function GetDataFromAPI(e){
+    console.log(searchinputApi.value);
+    const posterURL = `https://www.themoviedb.org/t/p/w220_and_h330_face/${posterPath}`;
+    request.GET(`${request.API_KEY}&language=en-US&query=${searchinputApi.value}&page=1`)
+    .then(response => {
+        //response to li elements
+        response.results.forEach(responseData =>{
+            console.log(responseData)
+        })
+    }
+    )
+    .catch(err => new Error(err));
+
 }
