@@ -34,6 +34,7 @@ const searchmovie = document.querySelector('#search-movie');
 const addmoviebtnApi = document.querySelector('#addmovie-api');
 const closeAddFormBtnApi = document.querySelector('#closebutton-api');
 const searchinputApi = document.querySelector('#search-fromApi');
+const ListApiFilms = document.querySelector('#api-results');
 addEventListener();
 
 function addEventListener(){
@@ -393,12 +394,26 @@ function CloseAddMovieFormAPI(){
 
 function GetDataFromAPI(e){
     console.log(searchinputApi.value);
-    const posterURL = `https://www.themoviedb.org/t/p/w220_and_h330_face/${posterPath}`;
+    
     request.GET(`${request.API_KEY}&language=en-US&query=${searchinputApi.value}&page=1`)
     .then(response => {
         //response to li elements
         response.results.forEach(responseData =>{
-            console.log(responseData)
+            const posterURL = `https://www.themoviedb.org/t/p/w220_and_h330_face/${responseData.poster_path}`;
+            let NewFilmwthApi = document.createElement('li');
+            NewFilmwthApi.classList.add('api-result');
+            NewFilmwthApi.innerHTML += `
+                <div class="moviePoster">
+                    <img src="${posterURL}" alt="Film-poster">
+                </div>
+                <div class="movieName">
+                    ${responseData.title}
+                </div>
+            `
+            ListApiFilms.appendChild(NewFilmwthApi);
+            //searhinputvalueyi silince li elementlerin remove olması eklenecek
+            // click eventi ile li elementi seçimi
+            // image ve film name düzenlemesi
         })
     }
     )
