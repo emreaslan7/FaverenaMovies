@@ -393,12 +393,15 @@ function CloseAddMovieFormAPI(){
 }
 
 function GetDataFromAPI(e){
-    console.log(searchinputApi.value);
+    console.log(ListApiFilms.childNodes);
+    ListApiFilms.innerHTML = '';
     
     request.GET(`${request.API_KEY}&language=en-US&query=${searchinputApi.value}&page=1`)
     .then(response => {
         //response to li elements
+        
         response.results.forEach(responseData =>{
+            console.log(responseData);
             const posterURL = `https://www.themoviedb.org/t/p/w220_and_h330_face/${responseData.poster_path}`;
             let NewFilmwthApi = document.createElement('li');
             NewFilmwthApi.classList.add('api-result');
@@ -406,17 +409,20 @@ function GetDataFromAPI(e){
                 <div class="moviePoster">
                     <img src="${posterURL}" alt="Film-poster">
                 </div>
+                <div class="filmOverviews">
+                    <p class="filmOverview mute">${responseData.overview}</p>
+                </div>
                 <div class="movieName">
-                    ${responseData.title}
+                    ${responseData.title} <br>
+                    <p class="mute">Date: ${responseData.release_date}</p>
                 </div>
             `
             ListApiFilms.appendChild(NewFilmwthApi);
-            //searhinputvalueyi silince li elementlerin remove olması eklenecek
             // click eventi ile li elementi seçimi
-            // image ve film name düzenlemesi
         })
     }
     )
     .catch(err => new Error(err));
 
 }
+// click event ile li elementi seçimi ve daha sonra seçilen filmi ekleme

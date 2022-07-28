@@ -21,6 +21,10 @@ body{
     background: var(--bg-main);
     height: 1px;
 }
+.mute{
+    opacity: 0.6;
+    font-size: 12px;
+}
 .container-wthmenu{
     margin-left: 19rem;
     margin-right: 4rem;
@@ -455,15 +459,39 @@ input[type="radio"]:checked + label{
 #api-results {
     position: absolute;
     width : 708px;
-    max-height: 400px;
+    max-height: 500px;
     box-sizing: border-box;
     z-index: 1001;
     margin-top: 45px;
     background-color: #00B4CC;
+    overflow-y: scroll;
 }
 .api-result{
     background-color: #9DBFAF;
     padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+.api-result:hover{
+    background-color: #8aad9c;
+}
+.api-result:hover .moviePoster img,
+.api-result:hover .movieName,
+.api-result:hover .filmOverviews{
+    opacity: 0.8;
+}
+.filmOverviews{
+    width: 33%;
+}
+.movieName {
+    width: 33%;
+    text-align: center;
+}
+.moviePoster img{
+    width: 125px;
+    object-fit: cover;
 }
 /*---------API END-------*/
 
