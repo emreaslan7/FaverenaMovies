@@ -35,6 +35,7 @@ const addmoviebtnApi = document.querySelector('#addmovie-api');
 const closeAddFormBtnApi = document.querySelector('#closebutton-api');
 const searchinputApi = document.querySelector('#search-fromApi');
 const ListApiFilms = document.querySelector('#api-results');
+
 addEventListener();
 
 function addEventListener(){
@@ -52,6 +53,8 @@ function addEventListener(){
     addmoviebtnApi.addEventListener('click',OpenAddMovieFormAPI);
     closeAddFormBtnApi.addEventListener('click',CloseAddMovieFormAPI);
     searchinputApi.addEventListener('keyup',GetDataFromAPI);
+    ListApiFilms.addEventListener('click',ChooseNewFilmtoList);
+  
 }
 
 // all todos list to UI when load page
@@ -393,7 +396,6 @@ function CloseAddMovieFormAPI(){
 }
 
 function GetDataFromAPI(e){
-    console.log(ListApiFilms.childNodes);
     ListApiFilms.innerHTML = '';
     
     request.GET(`${request.API_KEY}&language=en-US&query=${searchinputApi.value}&page=1`)
@@ -401,7 +403,7 @@ function GetDataFromAPI(e){
         //response to li elements
         
         response.results.forEach(responseData =>{
-            console.log(responseData);
+         
             const posterURL = `https://www.themoviedb.org/t/p/w220_and_h330_face/${responseData.poster_path}`;
             let NewFilmwthApi = document.createElement('li');
             NewFilmwthApi.classList.add('api-result');
@@ -413,12 +415,13 @@ function GetDataFromAPI(e){
                     <p class="filmOverview mute">${responseData.overview}</p>
                 </div>
                 <div class="movieName">
-                    ${responseData.title} <br>
-                    <p class="mute">Date: ${responseData.release_date}</p>
-                </div>
+                    <p>${responseData.title}</p>
+                    <p class="mute">Date:  ${responseData.release_date}</p>
+                    <p class="mute">IMDB:  ${responseData.vote_average}</p>
+                </div>   
             `
             ListApiFilms.appendChild(NewFilmwthApi);
-            // click eventi ile li elementi seçimi
+             
         })
     }
     )
@@ -426,3 +429,67 @@ function GetDataFromAPI(e){
 
 }
 // click event ile li elementi seçimi ve daha sonra seçilen filmi ekleme
+
+function ChooseNewFilmtoList(e){
+    if(e.target.classList.contains('api-result')){
+
+        const name = e.target.lastElementChild.firstElementChild.textContent;
+        const url = e.target.firstElementChild.firstElementChild.src;
+        const imdb = e.target.lastElementChild.lastElementChild.textContent.slice(5,10).trim();
+        const date = e.target.lastElementChild.children[1].textContent.slice(5).trim();
+
+    }else{
+        const name = e.target.parentElement.parentElement.lastElementChild.firstElementChild.textContent;
+        const url = e.target.parentElement.parentElement.firstElementChild.firstElementChild.src;
+        const imdb = e.target.parentElement.parentElement.lastElementChild.lastElementChild.textContent.slice(5,10).trim();
+        const date = e.target.parentElement.parentElement.lastElementChild.children[1].textContent.slice(5).trim();
+        const newfilm = new Film(name,date,imdb,url);
+        console.log(newfilm);
+        filmList.innerHTML += `
+        <li>
+            <div class="poster">
+                <img src="${newfilm.url}" alt="movie">
+                <div class="rank">${newfilm.imdb}</div>
+            </div>
+            <div class="movie-desc">
+                <div>
+                    <h6 class="movie-name">${newfilm.name}</h6>
+                    <p class="author">${newfilm.director}</p>
+                </div>
+                <div class="movies-icons">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 starred-movie" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 delete-movie" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                </div>
+            </div>
+        </li>`
+    }
+
+    // const newfilm = new Film(name,url,imdb,date);
+    // filmList.innerHTML += `
+    // <li>
+    //     <div class="poster">
+    //         <img src="${newfilm.url}" alt="movie">
+    //         <div class="rank">${newfilm.imdb}</div>
+    //     </div>
+    //     <div class="movie-desc">
+    //         <div>
+    //             <h6 class="movie-name">${newfilm.name}</h6>
+    //             <p class="author">${newfilm.date}</p>
+    //         </div>
+    //         <div class="movies-icons">
+    //             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 starred-movie" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    //                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+    //             </svg>
+    //             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 delete-movie" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    //                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+    //             </svg>
+    //         </div>
+    //     </div>
+    // </li>`
+}
+
+// li elemnetlerin içindekini tek tek seçiyor filmi tek seç
