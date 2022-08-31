@@ -56,7 +56,7 @@ function addEventListener(){
     ListApiFilms.addEventListener('click',ChooseNewFilmtoList);
   
 }
-
+console.log
 // all todos list to UI when load page
 function LoadAllChangesToUI(e){
     let myCollection = getMoviesFromStorage();
@@ -257,7 +257,7 @@ function AddMovieToUI(e){
 function DeleteMovieFromUI(e){
 
     const filmname = e.target.parentNode.previousSibling.previousSibling.firstChild.nextSibling.textContent;
-    confirmMessageforDelete = `Are you sure you want to delete ${filmname}`;
+    const confirmMessageforDelete = `Are you sure you want to delete ${filmname}`;
 
     if(e.target.classList == "h-6 w-6 delete-movie"){
         if(confirm(confirmMessageforDelete) == true){
@@ -459,6 +459,10 @@ function ChooseNewFilmtoList(e){
                 </div>
             </div>
         </li>`
+        //add to local storage
+        let myCollection = getMoviesFromStorage();
+        myCollection.push(newfilm);
+        localStorage.setItem('myCollection',JSON.stringify(myCollection));
 
     }else{
         const name = e.target.parentElement.parentElement.lastElementChild.firstElementChild.textContent;
@@ -487,5 +491,12 @@ function ChooseNewFilmtoList(e){
                 </div>
             </div>
         </li>`
+
+        //add to local storage
+        let myCollection = getMoviesFromStorage();
+        myCollection.push(newfilm);
+        localStorage.setItem('myCollection',JSON.stringify(myCollection));
     }
+
+    
 }
